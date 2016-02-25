@@ -31,6 +31,7 @@ public class Robot extends SampleRobot {
 	F310 drive = new F310(0, 0.1);
 	F310 arm = new F310(1, 0.1);
 	private boolean autoInit = false;
+	
 	private CameraServer cameraServer;
 
 	int targetDistance = 17;

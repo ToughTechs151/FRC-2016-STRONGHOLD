@@ -12,13 +12,13 @@ import org.nashua.tt151.lib.F310;
 import edu.wpi.first.wpilibj.Talon;
 
 
-public class Arm extends Subsystem{
+public class Arm extends Subsystem {
 	private static Arm INSTANCE = null;
 		
 	Talon elbow = new Talon(0);
 	Talon shoulder = new Talon(1);
 	
-	private Arm(){}
+	private Arm() {}
 	
 	public static Arm getInstance() {
 		if(INSTANCE == null) {
@@ -36,7 +36,7 @@ public class Arm extends Subsystem{
 		double elbow2 = arm.getRightY() * mult;
 		
 		
-		set(elbow2, shoulder2);
+//		set(elbow2, shoulder2);
 //		boolean lock = false; //Boolean for locking the arm
 //		lock = lockToggle(lock, arm);
 //		
@@ -56,9 +56,14 @@ public class Arm extends Subsystem{
 		
 		if(arm.getButton(F310.Button.LEFT_BUMPER)) {
 			setShoulder(-.125); //Sets shoulder joint to 1/8 speed if left bumper is pressed
+		} else {
+			setShoulder(shoulder2);
 		}
+		
 		if (arm.getButton(F310.Button.RIGHT_BUMPER)) {
 			setElbow(.125); //Sets elbow joint to 1/8 speed if right bumper is pressed
+		} else {
+			setElbow(elbow2);
 		}
 	}
 	/**
@@ -71,7 +76,7 @@ public class Arm extends Subsystem{
 	 */
 	
 	private boolean lockToggle(boolean bool, F310 arm) {
-		while(arm.getButton(F310.Button.B)) {
+		if(arm.getButton(F310.Button.B)) {
 			return !bool; // Returns true, locking the arms (B must be held down to work)
 		}
 			return bool; // Returns false, unlocking the arms
